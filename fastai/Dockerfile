@@ -1,4 +1,4 @@
-#docker run -it --gpus all nvidia/cuda:10.0-base
+#docker run -it --gpus all ds:fastai
 #docker exec -it xxxx bash
 #https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
 
@@ -25,22 +25,29 @@ RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 RUN conda update -n base -c defaults conda
 RUN conda create -y -n fastai -c pytorch -c fastai fastai
 ENV PATH /opt/conda/envs/fastai/bin:$PATH
-RUN echo "conda activate fastai" >> ~/.bashrc
 RUN conda init bash
+SHELL ["bash", "-lc"]
+RUN echo "conda activate fastai" >> ~/.bashrc
 RUN conda activate fastai
 RUN conda install jupyter notebook
 RUN conda install -c conda-forge jupyter_contrib_nbextensions 
+RUN jupyter notebook --generate-config
+RUN conda install nb_conda
 RUN conda install jupyterlab
 RUN conda install --quiet --yes tini
+RUN conda install ipykernel --yes
 
+EXPOSE 8889
 EXPOSE 8888
+EXPOSE 22
 
-ENTRYPOINT ["tini","-g","--"]
-CMD ["jupyter-lab.sh"]
+#ENTRYPOINT ["tini","-g","--"]
+#CMD ["jupyter-lab.sh"]
 
 
 #docker build -t ds:fastai .
 #docker run -it --runtime=nvidia ds:fastai
 
-
+# jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root
+# conda install ipykernel
 
