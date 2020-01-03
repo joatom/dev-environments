@@ -1,4 +1,4 @@
-#docker run -it --gpus all ds:fastai
+#docker run -it -p 8888:8888 -v ~/.gitconfig:/etc/gitconfig --gpus all ds:fastai
 #docker exec -it xxxx bash
 #https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
 
@@ -23,7 +23,7 @@ RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 
 # create conda env
 RUN conda update -n base -c defaults conda
-RUN conda create -y -n fastai -c pytorch -c fastai fastai
+RUN conda create -y -n fastai -c pytorch -c fastai fastai torchvision torchaudio
 ENV PATH /opt/conda/envs/fastai/bin:$PATH
 RUN conda init bash
 SHELL ["bash", "-lc"]
@@ -32,14 +32,21 @@ RUN conda activate fastai
 RUN conda install jupyter notebook
 RUN conda install -c conda-forge jupyter_contrib_nbextensions 
 RUN jupyter notebook --generate-config
-RUN conda install nb_conda
+RUN conda install nb_conda --yes
 RUN conda install jupyterlab
 RUN conda install --quiet --yes tini
 RUN conda install ipykernel --yes
 
+RUN apt -y install git
+
+# https://github.com/cdr/code-server/blob/master/Dockerfile
+# RUN adduser --gecos '' --disabled-password ${username} && \
+#	echo "coder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
+
+COPY . /home
+
 EXPOSE 8889
 EXPOSE 8888
-EXPOSE 22
 
 #ENTRYPOINT ["tini","-g","--"]
 #CMD ["jupyter-lab.sh"]
