@@ -1,4 +1,4 @@
-#docker run -it -p 8888:8888 -v ~/.gitconfig:/etc/gitconfig --gpus all ds:fastai
+#docker run -it -p 8888:8888 -v ~/.gitconfig:/etc/gitconfig ~/.ssh/id_rsa:/etc/ssh/ssh_config --gpus all ds:fastai
 #docker exec -it xxxx bash
 #https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
 
