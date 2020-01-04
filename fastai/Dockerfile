@@ -1,7 +1,3 @@
-#docker run -it -p 8889:8889 -p 8888:8888 -v ~/.gitconfig:/etc/gitconfig -v ~/git_repos:/home/git_repos --gpus all ds:fastai
-#docker exec -it xxxx bash
-#https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
-
 FROM nvidia/cuda:10.0-base
 
 ENV CONDA_DIR=/opt/conda
@@ -19,47 +15,28 @@ RUN conda --version
 RUN conda clean -tipsy
 RUN ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
-#RUN echo "conda activate base" >> ~/.bashrc
 
 # create conda env
 RUN conda update -n base -c defaults conda
 RUN conda create -y -n fastai -c pytorch -c fastai fastai torchvision torchaudio
 ENV PATH /opt/conda/envs/fastai/bin:$PATH
-
 RUN conda init bash
 SHELL ["bash", "-lc"]
 RUN echo "conda activate fastai" >> ~/.bashrc
 RUN conda activate fastai
+
+# install jupyter
 RUN conda install jupyter notebook
 RUN conda install -c conda-forge jupyter_contrib_nbextensions 
 RUN jupyter notebook --generate-config
 RUN conda install nb_conda nb_conda_kernels --yes
 RUN conda install jupyterlab
-#RUN conda install --quiet --yes tini
-#RUN conda install ipykernel --yes
-
-#RUN echo "source activate fastai" >> ~/.bashrc
-#RUN source activate fastai
 RUN conda install pip --yes
+# need to intstall ipykernel from pip instead of conda
 RUN pip install ipykernel
-#RUN python -m ipykernel install --user --name fastai --display-name Python_fastai
-
-#RUN conda install nb_conda nb_conda_kernels ipykernel --yes
-
-
-# https://github.com/cdr/code-server/blob/master/Dockerfile
-# RUN adduser --gecos '' --disabled-password ${username} && \
-#	echo "coder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/nopasswd
 
 EXPOSE 8889
 EXPOSE 8888
 
 ENTRYPOINT ["jupyter","lab","--ip=0.0.0.0","--port=8889","--allow-root"]
-
-
-#docker build -t ds:fastai .
-#docker run -it --runtime=nvidia ds:fastai
-
-# jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root
-# conda install ipykernel
 
