@@ -18,7 +18,7 @@ RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 
 # create conda env
 RUN conda update -n base -c defaults conda
-RUN conda create -y -n fastai -c pytorch -c fastai fastai torchvision torchaudio
+RUN conda create -y -n fastai -c pytorch -c fastai fastai torchvision torchaudio python=3.6
 ENV PATH /opt/conda/envs/fastai/bin:$PATH
 RUN conda init bash
 SHELL ["bash", "-lc"]
@@ -34,6 +34,8 @@ RUN conda install jupyterlab
 RUN conda install pip --yes
 # need to intstall ipykernel from pip instead of conda
 RUN pip install ipykernel
+RUN pip install ipywidgets
+RUN jupyter nbextension enable --py widgetsnbextension
 
 EXPOSE 8889
 EXPOSE 8888
