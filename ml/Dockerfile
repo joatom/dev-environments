@@ -37,6 +37,11 @@ RUN pip install ipykernel
 RUN pip install ipywidgets
 RUN jupyter nbextension enable --py widgetsnbextension
 
+RUN pip install pyarrow==0.15.*
+RUN pip install nbdev
+RUN apt-get install -y libsm6 libxext6 libxrender-dev
+RUN pip install opencv-python
+
 EXPOSE 8889
 EXPOSE 8888
 

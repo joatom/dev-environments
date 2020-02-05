@@ -7,8 +7,9 @@ When I try out new techniques I always reach a point after some time when my dev
 I use this repo for private purpose only. So if you use it too, do it on your own risk and be aware that the scripts may contain security issues (e.g. absence of proper user setup and root usage).
 
 ## Environments
-- **ds:fastai**: 
+- **joatom/ml**: 
     - Language: python
     - Libraries: fastai, pytorch, torchvision, torchaudio
     - IDE: Jupyter Notebook and Jupyter Lab
-
+- **joatom/lab_log_db**:
+    - Database: postgres 12.1
