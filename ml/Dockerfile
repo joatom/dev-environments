@@ -41,6 +41,8 @@ RUN pip install pyarrow==0.15.*
 RUN pip install nbdev
 RUN apt-get install -y libsm6 libxext6 libxrender-dev
 RUN pip install opencv-python
+RUN pip install pretrainedmodels
+RUN pip install efficientnet-pytorch
 
 EXPOSE 8889
 EXPOSE 8888
