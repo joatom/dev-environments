@@ -15,7 +15,7 @@ The Dockerfile is setup for private purpose to quickly get started and runs as r
 ## Install
 Build container:
 
-    docker build -t joatom/ml
+    docker build . -t joatom/ml
     
 Run container:
     
