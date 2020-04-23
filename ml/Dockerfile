@@ -18,12 +18,12 @@ RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 
 # create conda env
 RUN conda update -n base -c defaults conda
-RUN conda create -y -n fastai -c pytorch -c fastai fastai torchvision torchaudio python=3.6
-ENV PATH /opt/conda/envs/fastai/bin:$PATH
+RUN conda create -y -n ml -c pytorch -c fastai fastai torchvision torchaudio python=3.6
+ENV PATH /opt/conda/envs/ml/bin:$PATH
 RUN conda init bash
 SHELL ["bash", "-lc"]
-RUN echo "conda activate fastai" >> ~/.bashrc
-RUN conda activate fastai
+RUN echo "conda activate ml" >> ~/.bashrc
+RUN conda activate ml
 
 # install jupyter
 RUN conda install jupyter notebook
@@ -41,6 +41,8 @@ RUN pip install pyarrow==0.15.*
 RUN pip install nbdev
 RUN apt-get install -y libsm6 libxext6 libxrender-dev
 RUN pip install opencv-python
+RUN pip install pretrainedmodels
+RUN pip install efficientnet-pytorch
 
 EXPOSE 8889
 EXPOSE 8888
