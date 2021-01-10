@@ -18,7 +18,7 @@ Create a directory for the database files:
 If the database needs to be recreated delete content of *datadir*:
     
     # !! All former DB stored in the directory will be lost
-    # rm -r ~/lab_log_db/datadir
+    # rm -r ~/lab_log_db
 
 Build container:
 
@@ -33,8 +33,8 @@ For administration pgAdmin can be installed as a seperat container like this:
     docker pull dpage/pgadmin4
     
     docker run --name pgadmin4 -p 20080:80 \
-    -e 'PGADMIN_DEFAULT_EMAIL=a@b.cd' \
-    -e 'PGADMIN_DEFAULT_PASSWORD=abc' \
+    -e "PGADMIN_DEFAULT_EMAIL=a@b.cd" \
+    -e "PGADMIN_DEFAULT_PASSWORD=abc" \
     -d dpage/pgadmin4
     
     

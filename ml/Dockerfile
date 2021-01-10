@@ -32,6 +32,8 @@ RUN jupyter notebook --generate-config
 RUN conda install nb_conda nb_conda_kernels --yes
 RUN conda install jupyterlab
 RUN conda install pip --yes
+RUN conda install python-graphviz --yes
+RUN conda install pandasql --yes
 # need to intstall ipykernel from pip instead of conda
 RUN pip install ipykernel
 RUN pip install ipywidgets
@@ -39,10 +41,11 @@ RUN jupyter nbextension enable --py widgetsnbextension
 
 RUN pip install pyarrow==0.15.*
 RUN pip install nbdev
-RUN apt-get install -y libsm6 libxext6 libxrender-dev
+#RUN apt-get install -y libsm6 libxext6 libxrender-dev
 RUN pip install opencv-python
 RUN pip install pretrainedmodels
 RUN pip install efficientnet-pytorch
+RUN pip install seaborn
 
 EXPOSE 8889
 EXPOSE 8888
