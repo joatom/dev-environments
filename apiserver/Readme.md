@@ -16,8 +16,6 @@ The Dockerfile is setup for private purpose to quickly get started and runs as r
 - Linux (I haven't tried Windows or Mac.)
 - Docker
 
-Following https://fastapi.tiangolo.com/deployment/docker/
-
 Setting up the container.
 ```bash
 docker build -t joatom/apiserver .
