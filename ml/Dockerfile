@@ -16,14 +16,7 @@ RUN conda clean -tipsy
 RUN ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh
 RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc
 
-# create conda env
-RUN conda update -n base -c defaults conda
-RUN conda create -y -n ml -c pytorch -c fastai fastai torchvision torchaudio python=3.6
-ENV PATH /opt/conda/envs/ml/bin:$PATH
-RUN conda init bash
-SHELL ["bash", "-lc"]
-RUN echo "conda activate ml" >> ~/.bashrc
-RUN conda activate ml
+RUN conda install -c fastchan fastai
 
 # install jupyter
 RUN conda install jupyter notebook
@@ -34,18 +27,15 @@ RUN conda install jupyterlab
 RUN conda install pip --yes
 RUN conda install python-graphviz --yes
 RUN conda install pandasql --yes
+
+## some additional libraries, e.g. aiofiles for FileResponse
 # need to intstall ipykernel from pip instead of conda
-RUN pip install ipykernel
-RUN pip install ipywidgets
+COPY requirements.txt /tmp
+RUN pip install -q -r /tmp/requirements.txt
+
+# jupyter ext
 RUN jupyter nbextension enable --py widgetsnbextension
 
-RUN pip install pyarrow==0.15.*
-RUN pip install nbdev
-#RUN apt-get install -y libsm6 libxext6 libxrender-dev
-RUN pip install opencv-python
-RUN pip install pretrainedmodels
-RUN pip install efficientnet-pytorch
-RUN pip install seaborn
 
 EXPOSE 8889
 EXPOSE 8888

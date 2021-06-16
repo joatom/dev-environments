@@ -1,0 +1,14 @@
+ipykernel
+ipywidgets
+pandas
+seaborn
+sklearn
+torchaudio
+websocket-client
+pyarrow==0.15.*
+nbdev
+opencv-python
+pretrainedmodels
+efficientnet-pytorch
+timm
+
