@@ -11,6 +11,7 @@ The Dockerfile is setup for private purpose to quickly get started and runs as r
 - Linux (I haven't tried Windows or Mac.)
 - Docker
 - NVidia for GPU-Support (tested on RTX 2070 Super)
+- nvidia-container-runtime
 
 ## Install
 Build container:

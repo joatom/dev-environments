@@ -1,4 +1,4 @@
-FROM nvidia/cuda:10.0-base
+FROM nvidia/cuda:11.8.0-base-ubuntu22.04
 
 ENV CONDA_DIR=/opt/conda
 
@@ -27,6 +27,8 @@ RUN conda install jupyterlab
 RUN conda install pip --yes
 RUN conda install python-graphviz --yes
 RUN conda install pandasql --yes
+
+RUN apt -y install git
 
 ## some additional libraries, e.g. aiofiles for FileResponse
 # need to intstall ipykernel from pip instead of conda
